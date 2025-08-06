@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QPhoneKU - Jual Beli HP Second Berkualitas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .product-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .btn {
+            transition: all 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #3B82F6;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .mobile-menu.open {
+            max-height: 500px;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="bg-blue-600 text-white p-2 rounded-lg mr-2">
+                    <i class="fas fa-mobile-alt text-2xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-blue-600">QPhone<span class="text-orange-500">KU</span></h1>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-gray-700 hover:text-blue-600">Beranda</a>
+                <a href="#produk" class="nav-link text-gray-700 hover:text-blue-600">Produk</a>
+                <a href="#testimoni" class="nav-link text-gray-700 hover:text-blue-600">Testimoni</a>
+                <a href="#kontak" class="nav-link text-gray-700 hover:text-blue-600">Kontak</a>
+                <div class="relative">
+                    <button id="cart-btn" class="text-gray-700 hover:text-blue-600 relative">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                    <div id="cart-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl p-4 border border-gray-200 z-50">
+                        <p class="text-center text-gray-500" id="cart-empty">Keranjang kosong</p>
+                        <div id="cart-items"></div>
+                        <div id="cart-total" class="hidden border-t mt-2 pt-2">
+                            <p class="flex justify-between font-semibold">
+                                <span>Total:</span>
+                                <span id="total-price">Rp0</span>
+                            </p>
+                            <button id="checkout-btn" class="w-full mt-2 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Checkout</button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            
+            <button id="mobile-menu-btn" class="md:hidden text-gray-700">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu bg-white md:hidden">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-4">
+                <a href="#home" class="nav-link text-gray-700 hover:text-blue-600 py-2">Beranda</a>
+                <a href="#produk" class="nav-link text-gray-700 hover:text-blue-600 py-2">Produk</a>
+                <a href="#testimoni" class="nav-link text-gray-700 hover:text-blue-600 py-2">Testimoni</a>
+                <a href="#kontak" class="nav-link text-gray-700 hover:text-blue-600 py-2">Kontak</a>
+                <div class="flex items-center py-2">
+                    <button id="mobile-cart-btn" class="text-gray-700 hover:text-blue-600 relative mr-4">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="mobile-cart-count" class="absolute -top-2 -right-2 bg-orange-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                    <button onclick="window.open('https://wa.me/6283893093421', '_blank')" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 flex items-center">
+                        <i class="fab fa-whatsapp mr-2"></i>Chat Admin
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="py-12 bg-gradient-to-r from-blue-50 to-blue-100 animate-fade">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                    Beli HP Second <span class="text-blue-600">Berkualitas</span> Dengan Harga Terbaik
+                </h2>
+                <p class="text-gray-600 mb-6 text-lg">
+                    QPhoneKU menjual smartphone second berkualitas dengan kondisi terbaik dan bergaransi resmi.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="#produk" class="btn bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 text-center font-semibold">
+                        Lihat Produk
+                    </a>
+                    <button onclick="window.open('https://wa.me/6283893093421', '_blank')" class="btn bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 text-center font-semibold flex items-center justify-center">
+                        <i class="fab fa-whatsapp mr-2"></i> Chat Sekarang
+                    </button>
+                </div>
+            </div>
+            <div class="md:w-1/2">
+                <img src="pic 1.jpg" alt="Koleksi berbagai smartphone premium bekas dalam kondisi baru dari berbagai merek termasuk iPhone dan Samsung" class="rounded-lg shadow-xl w-full">
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="produk" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Produk Unggulan</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto mb-4"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto">Temukan smartphone second berkualitas dengan harga terbaik</p>
+            </div>
+            
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex rounded-md shadow-sm">
+                    <button data-filter="all" class="btn-filter px-4 py-2 text-sm font-medium rounded-l-lg bg-blue-600 text-white">Semua</button>
+                    <button data-filter="samsung" class="btn-filter px-4 py-2 text-sm font-medium bg-gray-200 text-gray-700">Samsung</button>
+                    <button data-filter="iphone" class="btn-filter px-4 py-2 text-sm font-medium rounded-r-lg bg-gray-200 text-gray-700">iPhone</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Samsung Products -->
+                <div class="product-card samsung bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" onclick="showProductDetails('Samsung Galaxy S24 Ultra 5G', 'Samsung', 'Rp9.499.000', 'RAM 12GB + ROM 256GB, Battery Health 98%, Garansi 1 Tahun', 'pic s24.webp')">
+                    <img src="pic s24.webp" alt="Samsung Galaxy S24 Ultra" class="w-full h-64 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Samsung</span>
+                            <span class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-500 ml-1">4.7</span>
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Galaxy S24 Ultra 5G</h3>
+                        <div class="flex items-center mb-3">
+                            <span class="text-orange-500 font-bold">Rp9.499.000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card samsung bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" onclick="showProductDetails('Samsung Galaxy Z Flip 4', 'Samsung', 'Rp12.999.000', 'RAM 8GB + ROM 256GB, Battery Health 95%, Garansi 1 Tahun', 'pic zflip4.webp')">
+                    <img src="pic zflip4.webp" alt="Samsung Galaxy Z Flip 4" class="w-full h-64 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Samsung</span>
+                            <span class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-500 ml-1">4.6</span>
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Galaxy Z Flip 4</h3>
+                        <div class="flex items-center mb-3">
+                            <span class="text-orange-500 font-bold">Rp12.999.000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card samsung bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" onclick="showProductDetails('Samsung Galaxy A54', 'Samsung', 'Rp5.999.000', 'RAM 8GB + ROM 128GB, Battery Health 100%, Garansi 1 Tahun', 'pic a54.webp')">
+                    <img src="pic a54.webp" alt="Samsung Galaxy A54" class="w-full h-64 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Samsung</span>
+                            <span class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-500 ml-1">4.5</span>
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Galaxy A54</h3>
+                        <div class="flex items-center mb-3">
+                            <span class="text-orange-500 font-bold">Rp5.999.000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card samsung bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" onclick="showProductDetails('Samsung Galaxy S22', 'Samsung', 'Rp8.499.000', 'RAM 8GB + ROM 128GB, Battery Health 97%, Garansi 1 Tahun', 'pic s22.webp')">
+                    <img src="pic s22.webp" alt="Samsung Galaxy S22" class="w-full h-64 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Samsung</span>
+                            <span class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-500 ml-1">4.8</span>
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Galaxy S22</h3>
+                        <div class="flex items-center mb-3">
+                            <span class="text-orange-500 font-bold">Rp8.499.000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card samsung bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" onclick="showProductDetails('Samsung Galaxy Note 20', 'Samsung', 'Rp7.999.000', 'RAM 8GB + ROM 256GB, Battery Health 96%, Garansi 1 Tahun', 'pic note20.webp')">
+                    <img src="pic note20.webp" alt="Samsung Galaxy Note 20" class="w-full h-64 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Samsung</span>
+                            <span class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-500 ml-1">4.6</span>
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">Galaxy Note 20</h3>
+                        <div class="flex items-center mb-3">
+                            <span class="text-orange-500 font-bold">Rp7.999.000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- iPhone Products -->
+                <div class="product-card iphone bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" onclick="showProductDetails('iPhone 13 Pro Max', 'iPhone', 'Rp10.999.000', 'RAM 6GB + ROM 256GB, Battery Health 97%, Garansi Resmi 1 Tahun', 'pic iphone 13.jpg')">
+                    <img src="iphone113.jpg" alt="iPhone 13 Pro Max" class="w-full h-64 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded">iPhone</span>
+                            <span class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-500 ml-1">4.5</span>
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">iPhone 13 Pro Max</h3>
+                        <div class="flex items-center mb-3">
+                            <span class="text-orange-500 font-bold">Rp10.999.000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card iphone bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" onclick="showProductDetails('iPhone 12', 'iPhone', 'Rp8.999.000
+                                <div class="product-card iphone bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" onclick="showProductDetails('iPhone 12', 'iPhone', 'Rp8.999.000', 'RAM 4GB + ROM 128GB, Battery Health 95%, Garansi Resmi 1 Tahun', 'pic iphone12.jpg')">
+                    <img src="iphone12pro2.jpg" alt="iPhone 12" class="w-full h-64 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded">iPhone</span>
+                            <span class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-500 ml-1">4.4</span>
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">iPhone 12</h3>
+                        <div class="flex items-center mb-3">
+                            <span class="text-orange-500 font-bold">Rp8.999.000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card iphone bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" onclick="showProductDetails('iPhone 11', 'iPhone', 'Rp7.499.000', 'RAM 4GB + ROM 64GB, Battery Health 90%, Garansi Resmi 1 Tahun', 'pic iphone11.jpg')">
+                    <img src="pic iphone11.jpg" alt="iPhone 11" class="w-full h-64 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded">iPhone</span>
+                            <span class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-500 ml-1">4.3</span>
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">iPhone 11</h3>
+                        <div class="flex items-center mb-3">
+                            <span class="text-orange-500 font-bold">Rp7.499.000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card iphone bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" onclick="showProductDetails('iPhone SE 2020', 'iPhone', 'Rp5.999.000', 'RAM 3GB + ROM 64GB, Battery Health 92%, Garansi Resmi 1 Tahun', 'pic iphonese.jpg')">
+                    <img src="pic iphonese.jpg" alt="iPhone SE 2020" class="w-full h-64 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded">iPhone</span>
+                            <span class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-500 ml-1">4.2</span>
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">iPhone SE 2020</h3>
+                        <div class="flex items-center mb-3">
+                            <span class="text-orange-500 font-bold">Rp5.999.000</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card iphone bg-white rounded-xl shadow-md overflow-hidden border border-gray-100" onclick="showProductDetails('iPhone 13', 'iPhone', 'Rp9.499.000', 'RAM 4GB + ROM 128GB, Battery Health 96%, Garansi Resmi 1 Tahun', 'pic iphone13.jpg')">
+                    <img src="iphone113.jpg" alt="iPhone 13" class="w-full h-64 object-cover">
+                    <div class="p-5">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="bg-gray-100 text-gray-800 text-xs font-semibold px-2.5 py-0.5 rounded">iPhone</span>
+                            <span class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-500 ml-1">4.6</span>
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">iPhone 13</h3>
+                        <div class="flex items-center mb-3">
+                            <span class="text-orange-500 font-bold">Rp9.499.000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Pengaduan Layanan</h3>
+                    <p>Jika Anda memiliki pertanyaan atau keluhan, silakan hubungi kami:</p>
+                    <p class="mt-2"><strong>Email:</strong> support@qphoneku.com</p>
+                    <p><strong>Telepon:</strong> +62 838 9309 3421</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Kontak Person</h3>
+                    <p>Anda juga dapat menghubungi kami melalui media sosial:</p>
+                    <ul class="mt-2 space-y-2">
+                        <li><a href="https://facebook.com/qphoneku" class="text-blue-400 hover:underline">Facebook</a></li>
+                        <li><a href="https://instagram.com/qphoneku" class="text-blue-400 hover:underline">Instagram</a></li>
+                        <li><a href="https://twitter.com/qphoneku" class="text-blue-400 hover:underline">Twitter</a></li>
+                        <li><a href="https://tiktok.com/@qphoneku" class="text-blue-400 hover:underline">TikTok</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Dukungan Pembayaran</h3>
+                    <p>Kami menerima berbagai metode pembayaran:</p>
+                    <ul class="mt-2 space-y-2">
+                        <li>DANA</li>
+                        <li>OVO</li>
+                        <li>BCA</li>
+                        <li>BRI</li>
+                        <li>QRIS</li>
+                        <li>Sea Bank</li>
+                        <li>GoPay</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <p class="text-sm">&copy; 2023 QPhoneKU. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+        
+        // Cart Toggle
+        const cartBtn = document.getElementById('cart-btn');
+        const cartDropdown = document.getElementById('cart-dropdown');
+        const mobileCartBtn = document.getElementById('mobile-cart-btn');
+        
+        cartBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            cartDropdown.classList.toggle('hidden');
+        });
+        
+        mobileCartBtn.addEventListener('click', () => {
+            showCheckoutModal();
+        });
+
+        // Close cart when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!cartDropdown.contains(e.target) && e.target !== cartBtn) {
+                cartDropdown.classList.add('hidden');
+            }
+        });
+        
+        // Product Filter Functionality
+        const filterButtons = document.querySelectorAll('.btn-filter');
+        const productCards = document.querySelectorAll('.product-card');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+                
+                // Update active button style
+                filterButtons.forEach(btn => {
+                    if (btn === button) {
+                        btn.classList.remove('bg-gray-200', 'text-gray-700');
+                        btn.classList.add('bg-blue-600', 'text-white');
+                    } else {
+                        btn.classList.remove('bg-blue-600', 'text-white');
+                        btn.classList.add('bg-gray-200', 'text-gray-700');
+                    }
+                });
+                
+                // Filter products
+                productCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.classList.remove('hidden');
+                    } else {
+                        if (card.classList.contains(filter)) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        });
+        
+        // Cart functionality
+        let cart = [];
+        const cartCount = document.getElementById('cart-count');
+        const mobileCartCount = document.getElementById('mobile-cart-count');
+        const cartItems = document.getElementById('cart-items');
+        
+        function addToCart(name, price, image) {
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name,
+                    price,
+                    image,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            
+            // Show cart dropdown when adding item
+            cartDropdown.classList.remove('hidden');
+            
+            // Show animation feedback
+            const button = event.target;
+            button.innerHTML = '<i class="fas fa-check mr-2"></i>Ditambahkan';
+            button.classList.remove('bg-blue-600');
+            button.classList.add('bg-green-500');
+            
+            setTimeout(() => {
+                button.innerHTML = '<i class="fas fa-cart-plus mr-2"></i>Tambah ke Keranjang';
+                button.classList.remove('bg-green-500');
+                button.classList.add('bg-blue-600');
+            }, 1000);
+        }
+        
+        function updateCart() {
+            // Update count
+            const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            mobileCartCount.textContent = totalItems;
+            
+            // Update cart items
+            if (cart.length === 0) {
+                document.getElementById('cart-empty').classList.remove('hidden');
+                document.getElementById('cart-total').classList.add('hidden');
+                cartItems.innerHTML = '';
+            } else {
+                document.getElementById('cart-empty').classList.add('hidden');
+                document.getElementById('cart-total').classList.remove('hidden');
+                
+                let itemsHTML = '';
+                let subtotal = 0;
+                
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+                    
+                    itemsHTML += `
+                        <div class="flex justify-between items-center mb-3 border-b pb-3">
+                            <div class="flex items-center">
+                                <img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-cover rounded-md mr-3">
+                                <div>
+                                    <p class="text-sm font-medium">${item.name}</p>
+                                    <p class="text-xs text-gray-500">Rp${item.price.toLocaleString('id-ID')} x ${item.quantity}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-sm font-medium mr-2">Rp${itemTotal.toLocaleString('id-ID')}</span>
+                                <button onclick="removeFromCart('${item.name}')" class="text-red-500 hover:text-red-700">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                cartItems.innerHTML = itemsHTML;
+                document.getElementById('total-price').textContent = `Rp${subtotal.toLocaleString('id-ID')}`;
+            }
+        }
+        
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            updateCart();
+        }
+        
+        // Checkout functionality
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const checkoutModal = document.getElementById('checkout-modal');
+        const closeCheckout = document.getElementById('close-checkout');
+        const successModal = document.getElementById('success-modal');
+        const closeSuccess = document.getElementById('close-success');
+        
+        checkoutBtn.addEventListener('click', () => {
+            showCheckoutModal();
+        });
+        
+        closeCheckout.addEventListener('click', () => {
+            checkoutModal.classList.add('hidden');
+        });
+        
+        closeSuccess.addEventListener('click', () => {
+            successModal.classList.add('hidden');
+        });
+        
+        function showCheckoutModal() {
+            if (cart.length === 0) {
+                alert('Keranjang belanja kosong!');
+                return;
+            }
+            
+            const orderSummary = document.getElementById('order-summary');
+            let summaryHTML = '';
+            let subtotal = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                summaryHTML += `
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex items-center">
+                            <img src="${item.image}" alt="${item.name}" class="w-12 h-12 object-cover rounded-md mr-3">
+                            <div>
+                                <p class="text-sm font-medium">${item.name}</p>
+                                <p class="text-xs text-gray-500">${item.quantity} x Rp${item.price.toLocaleString('id-ID')}</p>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium">Rp${itemTotal.toLocaleString('id-ID')}</span>
+                    </div>
+                `;
+            });
+            
+            orderSummary.innerHTML = summaryHTML;
+            document.getElementById('modal-subtotal').textContent = `Rp${subtotal.toLocaleString('id-ID')}`;
+            document.getElementById('modal-total').textContent = `Rp${(subtotal + 5000).toLocaleString('id-ID')}`;
+            document.getElementById('final-total').textContent = `Rp${(subtotal + 5000).toLocaleString('id-ID')}`;
+            
+            checkoutModal.classList.remove('hidden');
+            cartDropdown.classList.add('hidden');
+        }
+        
+        // Form submission
+        const checkoutForm = document.getElementById('checkout-form');
+        
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Generate order number
+            const now = new Date();
+            const orderNumber = `QP-${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2,'0')}${now.getDate().toString().padStart(2,'0')}-${Math.floor(Math.random() * 900) + 100}`;
+            
+            document.getElementById('order-number').textContent = orderNumber;
+            
+            checkoutModal.classList.add('hidden');
+            successModal.classList.remove('hidden');
+            
+            // Clear cart
+            cart = [];
+            updateCart();
+        });
+    </script>
+</body>
+</html>
